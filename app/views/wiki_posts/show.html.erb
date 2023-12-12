@@ -3,6 +3,10 @@
 <%= render @wiki_post %>
 
 <h1><%= @wiki_post.title.titleize %></h1>
+<% if @wiki_post.image.attached? %>
+  <%= image_tag @wiki_post.image %>
+<% end %>
+
 <p><%= @wiki_post.description %></p>
 <p>Author: <%= @wiki_post.author.titleize %></p>
 <p>Created on <%= @wiki_post.created_at.strftime('%B %d, %Y') %></p>
