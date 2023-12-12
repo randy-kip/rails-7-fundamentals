@@ -3,8 +3,12 @@
 <%= form_with model: @wiki_post, local: true do |form| %>
 
   <div>
-    <%= form.label :title %><br>
+    <%= form.label :title %>
     <%= form.text_field :title %>
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+    <%= form.label :author %>
+    <%= form.text_field :author %>
   </div>
   <div>
     <%= form.submit "Create" %>
