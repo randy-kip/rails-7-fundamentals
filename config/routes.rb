@@ -13,6 +13,12 @@ Rails.application.routes.draw do
     get 'about'
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :wiki_posts
+    end
+  end
+
   get 'about', to: redirect('/welcome/about')
   # Defines the root path route ("/")
   root "welcome#index"
