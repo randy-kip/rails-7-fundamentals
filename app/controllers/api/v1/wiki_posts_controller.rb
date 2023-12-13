@@ -11,7 +11,8 @@ class Api::V1::WikiPostsController < ApplicationController
     # GET /api/v1/wiki_posts/1
     def show
         @wiki_post = WikiPost.find(params[:id])
-        render json: @wiki_post
+        serialized = WikiPostSerializer.serialize(@wiki_post)
+        render json: serialized
     end
 
     # POST /api/v1/wiki_posts
