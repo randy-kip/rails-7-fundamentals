@@ -1,4 +1,5 @@
 class Api::V1::WikiPostsController < ApplicationController
+    require 'csv'
     skip_before_action :verify_authenticity_token
 
     # GET /api/v1/wiki_posts
@@ -40,6 +41,22 @@ class Api::V1::WikiPostsController < ApplicationController
         @wiki_post = WikiPost.find(params[:id])
         @wiki_post.destroy
         head :no_content
+    end
+
+    def xml_index
+        @wiki_posts = WikiPost.all
+        render xml: @wiki_posts
+    end
+
+    def csv_index
+        @wiki_posts = WikiPost.all
+        csv_data = CSV.generate do |csv|
+            csv << ["ID", "Title", "Description", "Author"]
+            @wiki_posts.each do |post|
+                csv << [post.id, post.title, post.description, post.author]
+            end
+        end
+        send_data csv_data, filename: "wiki_posts.csv", type: "text/csv"
     end
 
     private
