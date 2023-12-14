@@ -1,6 +1,9 @@
-class Api::V1::WikiPostsController < ApplicationController
+class Api::V1::WikiPostsController < ActionController::API
+include ActionController::HttpAuthentication::Token::ControllerMethods
     require 'csv'
-    skip_before_action :verify_authenticity_token
+    before_action :authenticate
+
+    TOKEN = 'test'
 
     # GET /api/v1/wiki_posts
     def index
@@ -67,5 +70,11 @@ class Api::V1::WikiPostsController < ApplicationController
 
     def wiki_post_params
         params.permit(:title, :description, :author, :image)
+    end
+
+    def authenticate
+        authenticate_or_request_with_http_token do |token, options|
+            ActiveSupport::SecurityUtils.secure_compare(token, TOKEN)
+        end
     end
 end
