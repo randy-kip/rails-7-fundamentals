@@ -4,7 +4,10 @@ class Api::V1::WikiPostsController < ApplicationController
 
     # GET /api/v1/wiki_posts
     def index
-        @wiki_posts = WikiPost.all
+        page = params[:page].to_i
+        limit = params[:limit].to_i
+        offset = (page - 1) * limit
+        @wiki_posts = WikiPost.limit(limit).offset(offset)
         render json: @wiki_posts
     end
 

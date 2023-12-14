@@ -39,4 +39,8 @@ WikiPost.create!(
   author: 'Chris Williams'
 )
 
+10000.times do
+  WikiPost.create!(title: SecureRandom.hex(5), description: 'Test Post!', author: "Ha!")
+end
+
 puts 'Seeding completed.'
