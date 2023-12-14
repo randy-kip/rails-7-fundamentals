@@ -3,7 +3,7 @@ include ActionController::HttpAuthentication::Token::ControllerMethods
     require 'csv'
     before_action :authenticate
 
-    TOKEN = 'test'
+    TOKEN = ENV['WIKI_API_KEY']
 
     # GET /api/v1/wiki_posts
     def index
